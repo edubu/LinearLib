@@ -6,9 +6,9 @@ or
 Matrix\<int\>
 
 ## Initialize Matrix:
- Reads from file in format:
-1 2
-3 4
+ Reads from file in format:<br>
+1 2 <br>
+3 4<br>
 Matrix\<T\> mat(int rows, int cols, string filename);
 
 or
