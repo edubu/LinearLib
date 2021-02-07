@@ -3,7 +3,7 @@
 ## Makefile
 Create executable by entering into terminal: **make**<br>
 <br>
-Run executable by entering into terminal: **./main** where main is your executable specified in Makefile line 1
+Run executable by entering into terminal: **./main** where main is your executable specified in Makefile line 1 <br>
 <br>
-Update .cpp files in project by adding onto line 28 of **Makefile**
+Add additional .cpp or .h files in project by adding onto line 28/27 of **Makefile**
 
