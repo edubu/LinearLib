@@ -1,11 +1,11 @@
-Matrix library used for simple matrix multiplcation and transposes
+# Matrix library used for simple matrix multiplcation and transposes
 
-Supports use of doubles or ints:
+# Supports use of doubles or ints:
 Matrix<double>
 or
 Matrix<int>
 
-Initialize Matrix:
+# Initialize Matrix:
 // Reads from file in format:
 1 2
 3 4
@@ -21,7 +21,7 @@ or
 // Creates matrix with all positions filled with val
 Matrix<T> mat(int rows, int cols, T val);
 
-Functions:
+# Functions:
 // Returns transpose to input matrix
 transpose(Matrix<T> mat);
 
