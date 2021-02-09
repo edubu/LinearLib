@@ -1,70 +1,61 @@
 #include <iostream>
 #include <string>
-#include "Matrix.h"
-#include "LinAlg.h"
+#include "../Matrix.h"
 
 using namespace std;
 
 int main(){
 
-    // Initialize 3x3 Matrices
-    Matrix<int> mat1(3, 3, "matrix1.txt");
-    Matrix<int> mat2(3, 3);
+    // Initialize 3x3 Matrix
+    Matrix<int> mat3x3(3, 3, "matrix3x3.txt");
+    cout << "3x3 Matrix: " << endl;
+    mat3x3.print();
 
-    // 2x3 matrix
-    Matrix<int> mat3(2, 3, "matrix3.txt");
+    // 3x3 square transpose
+    cout << "3x3 Matrix Transpose: " << '\n';
+    Matrix<int> mat3x3Transpose = mat3x3.transpose();
+    mat3x3Transpose.print();
 
-    cout << "Matrix 1: " << '\n';
-    mat1.print();
-
-    cout << "Matrix 2: " << '\n';
-    mat2.print();
-
-    cout << "Matrix 3: " << '\n';
-    mat3.print();
-
-    Linalg lin;
-
-    // 4x4 square transpose
-    cout << "Matrix 1 Transpos: " << '\n';
-    Matrix<int> mat1Transpose = lin.transpose(mat1);
-    mat1Transpose.print();
-
-    //Non-square matrix transpose
-    cout << "Matrix 3 Transpose: " << '\n';
-    Matrix<int> mat3Transpose = lin.transpose(mat3);
-    mat3Transpose.print();
-
-    //mat2 is identity matrix so mat1 should return
-    cout << "Matrix 1 * Matrix 2: " << '\n';
-    Matrix<int> mat1Mult = lin.mult(mat1, mat2);
-    mat1Mult.print();
-
-    // Non-square matrices for testing matrix multiplication
-    cout << "2x3 Matrix A: " << '\n';
-    Matrix<int> matA(2, 3, "matrixA.txt");
-    matA.print();
-
-    cout << "3x2 Matrix B: " << '\n';
-    Matrix<int> matB(3, 2, "matrixB.txt");
-    matB.print();
-
-    Matrix<int> matAB = lin.mult(matA, matB);
-    Matrix<int> matBA = lin.mult(matB, matA);
-
-    cout << "Matrix A * Matrix B: " << '\n';
-    matAB.print();
-
-    cout << "Matrix B * Matrix A: " << '\n';
-    matBA.print();
-
-    cout << "3 * Matrix 1: " << '\n';
-    lin.mult(mat1, 3);
-    mat1.print();
+    // 2x3 non Matrix Transpose
+    Matrix<int> mat2x3(2, 3, "matrix2x3.txt");
+    cout << "2x3 Matrix: " << endl;
+    mat2x3.print();
+    mat2x3 = mat2x3.transpose();
+    cout << "After transpose: " << endl;
+    mat2x3.print();
 
 
 
+    // Test for scalar multiplication operator
+    Matrix<int> matMult(3, 3);
+    cout << "Testing matrix scalar multiplication operator" << endl;
+    cout << "Before Multplication by 3: " << endl;
+    matMult.print();
+    matMult = matMult * 3;
+    cout <<"After Multiplication by 3: " << endl;
+    matMult.print();
 
+    // Test for matrix multiplication operator
+    cout << "Testing matrix multiplication operator..." << endl <<endl;
+    cout << "3x3 Matrix: " << endl;
+    mat3x3.print();
+    cout << "3x3 Matrix Transpose: " << endl;
+    mat3x3Transpose.print();
+    cout << "After m * m^T: " << endl;
+    Matrix<int> testMult = mat3x3 * mat3x3Transpose;
+    testMult.print();
+
+    cout << "Multiply it by 3: " << endl;
+    testMult *= 3;
+    testMult.print();
+
+    //Make identity matrix
+    Matrix<int> i2mat(3, 3);
+    i2mat *= 2;
+
+    cout << "Multiply it by diagonal matrix of 2s: " << endl;
+    testMult *= i2mat;
+    testMult.print();
 
     return 0;
 }

@@ -11,6 +11,18 @@ using namespace std;
 
 //Currently accepts doubles or ints
 
+class InvalidMatrixDimensions : public std::exception {
+    public:
+        InvalidMatrixDimensions(string msg) : errorMsg(msg){}
+
+        string what(){
+            return errorMsg;
+        }
+
+    private:
+        string errorMsg;
+};
+
 template <typename T>
 class Matrix {
     public:
@@ -69,13 +81,16 @@ class Matrix {
 
             for(int i = 0; i < rows; i++){
                 for(int j = 0; j < cols; j++){
-                    matrix[i][j] = *(rhs.matrix[i][j]);
+                    matrix[i][j] = rhs.matrix[i][j];
                 }
             }
+
+            return *this;
         }
 
         // Copy Constructor
         Matrix(const Matrix<T> &other): rows(other.rows), cols(other.cols){
+
             matrix.resize(rows, vector<T>(cols, 0));
             
             for(int i = 0; i < rows; i++){
@@ -105,6 +120,94 @@ class Matrix {
         T & operator()(int &row, int &col){
             return matrix[row][col];
         }
+
+        // Ease of multiplying by scalar
+        Matrix<T> & operator*(int val){
+            
+            for(int i = 0; i < rows; i++){
+                for(int j = 0; j < cols; j++){
+                    matrix[i][j] *= val;
+                }
+            }
+
+            return *this;
+        }
+
+        // Ease of multiplying matric
+        Matrix<T> operator*(Matrix<T> &other){
+            try {
+                if(cols != other.getRows()){
+
+                    throw InvalidMatrixDimensions("Error: Invalid Matrix dimensions for multiplication");
+                }
+            }
+            catch(InvalidMatrixDimensions &error){
+                cout << error.what() << endl;
+            }
+
+            Matrix<T> newMatrix(rows, other.getCols(), 0);
+
+            // For each point of new matrix
+            for(int i = 0; i < rows; i++){
+                for(int j = 0; j < other.getCols(); j++){
+                    for(int k = 0; k < cols; k++){
+                        newMatrix(i, j) += matrix[i][k] * other(k, j);
+                    }
+                }
+            }
+
+            return newMatrix;
+        }
+
+        // Made for convienence in multiplying by scalar
+        void operator*=(int val){
+            for(int i = 0; i < rows; i++){
+                for(int j = 0; j < cols; j++){
+                    matrix[i][j] *= val;
+                }
+            }
+        }
+
+        // Made for convienence in multiplying by matrix
+        void operator*=(Matrix<T> &other){
+            try {
+                if(cols != other.getRows()){
+                    cout << "Error: invalid dimensions for dot product" << endl;
+
+                    throw InvalidMatrixDimensions("Invalid Matrix dimensions multiplication");
+                }
+            }
+            catch(InvalidMatrixDimensions &error){
+                cout << error.what() << endl;
+            }
+
+            Matrix<T> newMatrix(rows, other.getCols(), 0);
+
+            // For each point of new matrix
+            for(int i = 0; i < rows; i++){
+                for(int j = 0; j < other.getCols(); j++){
+                    for(int k = 0; k < cols; k++){
+                        newMatrix(i, j) += matrix[i][k] * other(k, j);
+                    }
+                }
+            }
+
+            matrix = newMatrix.matrix;
+        }
+
+        Matrix<T>  transpose(){
+            Matrix<T> matTranspose(cols, rows);
+
+            for(int i = 0; i < rows; i++){
+                for(int j = 0; j < cols; j++){
+                    matTranspose(j, i) = matrix[i][j];
+                }
+            }
+
+            return matTranspose;
+        }
+
+
 
 
 
