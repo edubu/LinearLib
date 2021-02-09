@@ -8,9 +8,9 @@ CXXFLAGS = -Wall -Wextra -pedantic
 SOURCES     = $(wildcard *.cpp)
 OBJECTS     = $(SOURCES:%.cpp=%.o)
 
-debug: CXXFLAGS += -g3 -DDEBUG
-debug:
-	$(CXX) $(CXXFLAGS) $(SOURCES) -o $(EXECUTABLE)_debug
+#debug: CXXFLAGS += -g3 -DDEBUG
+#debug:
+#	$(CXX) $(CXXFLAGS) $(SOURCES) -o $(EXECUTABLE)_debug
 
 
 $(EXECUTABLE): $(OBJECTS)
