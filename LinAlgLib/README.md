@@ -40,10 +40,10 @@ mat.transpose()
 ### Operators:
 #### *
  Returns product of matrices:
- Matrix\<int\> = mat1 * mat2;
+ Matrix\<T\> = mat1 * mat2;
  
  Returns product of matrix and scalar:
- Matrix\<int\> = mat1 * 3;
+ Matrix\<T\> = mat1 * 3;
  
  #### *=
  Multiplies given matrix by scalar:
